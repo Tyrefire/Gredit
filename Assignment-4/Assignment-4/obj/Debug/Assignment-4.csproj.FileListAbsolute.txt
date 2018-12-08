@@ -17,3 +17,28 @@ C:\Users\colin.heald\Documents\GitHub\Gredit\Assignment-4\Assignment-4\obj\Debug
 C:\Users\colin.heald\Documents\GitHub\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.csproj.CopyComplete
 C:\Users\colin.heald\Documents\GitHub\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.dll
 C:\Users\colin.heald\Documents\GitHub\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.pdb
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Assignment-4.dll.config
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Assignment-4.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Assignment-4.pdb
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.Owin.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.Owin.Security.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Newtonsoft.Json.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Owin.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.Owin.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Microsoft.Owin.Security.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\bin\Newtonsoft.Json.xml
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.csproj.CoreCompileInputs.cache
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.csproj.CopyComplete
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.dll
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.pdb
+D:\School\Fall 2018\CS3750\Gredit\Assignment-4\Assignment-4\obj\Debug\Assignment-4.csprojAssemblyReference.cache

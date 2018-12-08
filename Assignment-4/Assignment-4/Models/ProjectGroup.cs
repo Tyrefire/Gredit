@@ -16,6 +16,7 @@ namespace Assignment_4.Models
         public ProjectGroup()
         {
             //Set defaults to blank strings and zero
+            groupID = 0;
             groupName = "Title";
             groupDescription = "Description";
             status = 0;
@@ -23,7 +24,7 @@ namespace Assignment_4.Models
             group.gName = groupName;
             group.gDesc = groupDescription;
             group.gStatus = status;
-            groupID = group.insert();
+            //groupID = group.insert();
 
         }
 

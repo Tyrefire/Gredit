@@ -26,8 +26,6 @@ namespace Assignment_4
         public int insert()
         {
             con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            //con.ConnectionString = @"Data Source=tcp:tyler-cs3750-assignment-1.database.windows.net,1433;Initial Catalog=NameNChoice;User ID=tylermadsen;Password=Myf1rstserver";
-
             con.Open();
 
             cmd.Connection = con;

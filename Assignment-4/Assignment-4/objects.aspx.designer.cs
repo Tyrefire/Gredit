@@ -10,16 +10,16 @@
 namespace Assignment_4 {
     
     
-    public partial class _default {
+    public partial class objects {
         
         /// <summary>
-        /// main control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm main;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
         /// addObj control.
@@ -38,6 +38,15 @@ namespace Assignment_4 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton backBtn;
+        
+        /// <summary>
+        /// checker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label checker;
         
         /// <summary>
         /// ddlColCount control.

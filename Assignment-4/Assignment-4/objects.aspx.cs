@@ -8,10 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace Assignment_4
 {
-    public partial class _default : System.Web.UI.Page
+    public partial class objects : System.Web.UI.Page
     {
         public int objectCount;
-        public int projectCount;
         public int cellCount;
 
         public List<WorkObject> obj;
@@ -21,7 +20,25 @@ namespace Assignment_4
         {
             cellCount = Int32.Parse(ddlColCount.SelectedItem.Value);
 
-            if (Int32.Parse(loadProjects.Value) == 1)
+            checker.Text = "c" + Int32.Parse(loadProjects.Value);
+            checker.Text += "\tc" + Int32.Parse(loadObjects.Value);
+            checker.Text += "\tc" + Int32.Parse(loadSingleObject.Value);
+
+            //Add all objects from project with a certain groupID to the list of objects
+            //This code to be ammended with connection to database to get all objects
+            obj = new List<WorkObject>();
+
+            //This code to be removed once connection to database is established
+            ProjectGroup p = new ProjectGroup();
+            WorkObject w = new WorkObject(p.getGroupID());
+            obj.Add(w);
+
+            objectCount = obj.Count();
+
+            //draw objects
+            drawObjectsPage();
+
+            /*if (Int32.Parse(loadProjects.Value) == 1)
             {
                 //Add all projects to the list of projects
                 //This code to be ammended with connection to database to get all projects
@@ -58,77 +75,8 @@ namespace Assignment_4
             {
                 //draw single object
                 drawSingleObjectPage();
-            }
+            }*/
 
-        }
-
-        private void drawProjectsPage()
-        {
-            int rowCount;
-            Table t = new Table();
-
-            //make the panel visible
-            pnldynamic.Visible = true;
-
-            rowCount = projectCount / cellCount;
-            if (projectCount % cellCount > 0)
-            {
-                rowCount += 1;
-            }
-
-            //generate the table of Projects
-            t = new Table();
-            t.Style.Add("width", "100%");
-
-            int nObjCnt = projectCount;
-            int jMax = cellCount;
-
-            proj.ToArray();
-
-            for (int i = 0; i < rowCount; ++i)
-            {
-                TableRow row = new TableRow();
-                t.Rows.Add(row);
-
-                if (nObjCnt - cellCount >= 0)
-                {
-                    nObjCnt -= cellCount;
-                }
-                else
-                {
-                    if (nObjCnt % cellCount != 0)
-                    {
-                        jMax = nObjCnt;
-                    }
-                }
-
-                for (int j = 0; j < jMax; ++j)
-                {
-                    TableCell cell = new TableCell();
-
-                    Label Title = new Label();
-                    Title.Text = proj[0].getGroupName();
-
-                    TextBox tb = new TextBox();
-                    tb.ReadOnly = true;
-                    tb.TextMode = TextBoxMode.MultiLine;
-                    tb.ID = "proj" + proj[0].getGroupID();
-                    tb.Text = "proj" + proj[0].getGroupID();
-                    tb.Text += "\n" + proj[0].getGroupDescription();
-                    tb.Rows = 20;
-                    tb.Columns = 50;
-
-                    cell.Controls.Add(Title);
-                    cell.Controls.Add(new LiteralControl("<br />"));
-                    cell.Controls.Add(tb);
-                    cell.Attributes.Add("OnClick", "getObjects()");
-
-                    cell.ID = "Project" + proj[0].getGroupID();
-                    row.Cells.Add(cell);
-                }
-            }
-
-            pnldynamic.Controls.Add(t);
         }
 
         private void drawObjectsPage()
@@ -197,11 +145,6 @@ namespace Assignment_4
             }
 
             pnldynamic.Controls.Add(t);
-        }
-
-        private void drawSingleObjectPage()
-        {
-
         }
 
     }

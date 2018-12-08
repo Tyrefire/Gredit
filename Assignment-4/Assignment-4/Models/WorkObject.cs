@@ -18,7 +18,7 @@ namespace Assignment_4.Models
         public WorkObject(int grID)
         {
             //Set defaults to blank strings and zero
-            //objectID = 0;
+            objectID = 0;
             groupID = grID;
             objectTitle = "Title";
             objectText = "Text";
