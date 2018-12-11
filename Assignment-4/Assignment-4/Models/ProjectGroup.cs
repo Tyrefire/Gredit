@@ -15,17 +15,21 @@ namespace Assignment_4.Models
         
         public ProjectGroup()
         {
-            //Set defaults to blank strings and zero
-            groupID = 0;
             groupName = "Title";
             groupDescription = "Description";
             status = 0;
-            //connect to database, write blank values, then set groupID
+
             group.gName = groupName;
             group.gDesc = groupDescription;
-            group.gStatus = status;
-            //groupID = group.insert();
+            groupID = group.insertGroup();
+        }
 
+        public ProjectGroup(int grID, string grName, int sta, string grDescription)
+        {
+            groupName = "Title";
+            groupDescription = "Description";
+            status = 0;
+            groupID = group.insertGroup();
         }
 
         //Getters
@@ -57,7 +61,14 @@ namespace Assignment_4.Models
 
         public void setStatus(int s)
         {
-            
+            if (this.status == 0)
+            {
+                this.status = 1;
+            }
+            else
+            {
+                this.status = 0;
+            }
         }
 
     }

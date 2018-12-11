@@ -13,19 +13,31 @@ namespace Assignment_4.Models
         public string objectText;
         public int status;
         public DateTime modifiedDate;
+
+        
         DataAccess work = new DataAccess();
 
         public WorkObject(int grID)
         {
-            //Set defaults to blank strings and zero
-            objectID = 0;
             groupID = grID;
             objectTitle = "Title";
             objectText = "Text";
             modifiedDate = DateTime.Now;
             status = 0;
-            //connect to database, write blank values, then set groupID
 
+            work.wName = objectTitle;
+            work.wText = objectText;
+            objectID = work.insertWorkObject(groupID);
+        }
+
+        public WorkObject(int grID, int objID, string objTtitle, string objText, int sta, DateTime modiDate)
+        {
+            groupID = grID;
+            objectID = objID;
+            objectTitle = objTtitle;
+            objectText = objText;
+            status = sta;
+            modifiedDate = modiDate;
         }
 
         //Getters
@@ -62,14 +74,20 @@ namespace Assignment_4.Models
 
         public void setStatus(int s)
         {
-            //set the status depending on what we want
+            if (this.status == 0)
+            {
+                this.status = 1;
+            }
+            else
+            {
+                this.status = 0;
+            }
         }
 
         public void updateDate()
         {
             modifiedDate = DateTime.Now;
         }
-
 
     }
 }
