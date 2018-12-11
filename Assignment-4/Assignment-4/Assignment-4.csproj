@@ -101,6 +101,7 @@
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="object.aspx" />
     <Content Include="objects.aspx" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -122,6 +123,13 @@
     </Compile>
     <Compile Include="Hubs\A4Hub.cs" />
     <Compile Include="Models\ProjectGroup.cs" />
+    <Compile Include="object.aspx.cs">
+      <DependentUpon>object.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="object.aspx.designer.cs">
+      <DependentUpon>object.aspx</DependentUpon>
+    </Compile>
     <Compile Include="objects.aspx.cs">
       <DependentUpon>objects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

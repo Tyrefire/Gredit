@@ -12,6 +12,7 @@ namespace Assignment_4
     {
         public int objectCount;
         public int cellCount;
+        public int pID;
 
         public List<WorkObject> obj;
         public List<ProjectGroup> proj;
@@ -19,10 +20,7 @@ namespace Assignment_4
         protected void Page_Load(object sender, EventArgs e)
         {
             cellCount = Int32.Parse(ddlColCount.SelectedItem.Value);
-
-            checker.Text = "c" + Int32.Parse(loadProjects.Value);
-            checker.Text += "\tc" + Int32.Parse(loadObjects.Value);
-            checker.Text += "\tc" + Int32.Parse(loadSingleObject.Value);
+            pID = 1;
 
             //Add all objects from project with a certain groupID to the list of objects
             //This code to be ammended with connection to database to get all objects
@@ -30,7 +28,7 @@ namespace Assignment_4
 
             //This code to be removed once connection to database is established
             ProjectGroup p = new ProjectGroup();
-            WorkObject w = new WorkObject(p.getGroupID());
+            WorkObject w = new WorkObject(pID);
             obj.Add(w);
 
             objectCount = obj.Count();
@@ -38,51 +36,14 @@ namespace Assignment_4
             //draw objects
             drawObjectsPage();
 
-            /*if (Int32.Parse(loadProjects.Value) == 1)
-            {
-                //Add all projects to the list of projects
-                //This code to be ammended with connection to database to get all projects
-                proj = new List<ProjectGroup>();
-
-                //This code to be removed once connection to database is established
-                ProjectGroup p = new ProjectGroup();
-                proj.Add(p);
-
-                projectCount = proj.Count();
-
-                //draw projects
-                drawProjectsPage();
-            }
-
-            if (Int32.Parse(loadObjects.Value) == 1)
-            {
-                //Add all objects from project with a certain groupID to the list of objects
-                //This code to be ammended with connection to database to get all objects
-                obj = new List<WorkObject>();
-
-                //This code to be removed once connection to database is established
-                ProjectGroup p = new ProjectGroup();
-                WorkObject w = new WorkObject(p.getGroupID());
-                obj.Add(w);
-
-                objectCount = obj.Count();
-
-                //draw objects
-                drawObjectsPage();
-            }
-
-            if (Int32.Parse(loadSingleObject.Value) == 1)
-            {
-                //draw single object
-                drawSingleObjectPage();
-            }*/
-
         }
 
         private void drawObjectsPage()
         {
+            pnldynamic.Dispose();
+
             int rowCount;
-            Table t = new Table();
+            Table t;
 
             //make the panel visible
             pnldynamic.Visible = true;
@@ -137,7 +98,7 @@ namespace Assignment_4
                     cell.Controls.Add(Title);
                     cell.Controls.Add(new LiteralControl("<br />"));
                     cell.Controls.Add(tb);
-                    cell.Attributes.Add("OnClick", "getObject(" + obj[0].getObjectID() + ")");
+                    cell.Attributes.Add("OnClick", "getSingleObject()");
 
                     cell.ID = "Object" + obj[0].getObjectID();
                     row.Cells.Add(cell);
@@ -145,6 +106,20 @@ namespace Assignment_4
             }
 
             pnldynamic.Controls.Add(t);
+        }
+
+        public void makeNewObj()
+        {
+            String oTitle = callServer.Value;
+            WorkObject newObj = new WorkObject(pID);
+            newObj.setObjectTitle(oTitle);
+            obj.Add(newObj);
+            drawObjectsPage();
+        }
+
+        public void updateObj()
+        {
+            drawObjectsPage();
         }
 
     }

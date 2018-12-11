@@ -27,6 +27,27 @@
         }
     </style>
     <script>
+        setInterval(updateProjects, 10000);
+
+        function updateProjects() {
+            <%
+                updateGroups();
+            %>
+        }
+
+        function makeNewGroup() {
+            var title = prompt("Enter Project Title: ", "Title");
+            var desc = prompt("Project Description", "Descritption")
+            if (title == null || title == "" || desc == null) {
+                return;
+            }
+            document.getElementById("callServer1").value = title;
+            document.getElementById("callServer2").value = desc;
+            <%
+                makeNewGroup();
+            %>
+        }
+
         function getObjects() {
             window.location = "objects.aspx";
         }
@@ -34,12 +55,14 @@
 </head>
 <body>
     <form id="main" runat="server">
+        <asp:HiddenField ID="callServer1" runat="server" />
+        <asp:HiddenField ID="callServer2" runat="server" />
+
         <div class="Fixed">
             <table style="width:100%; align-content:stretch;">
                 <tr>
                     <td class="child">
-                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" />
-                        <asp:ImageButton ID="backBtn" class="btnClass" runat="server" ImageUrl="~/Models/back.png"/>
+                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClientClick="makeNewGroup()" />
                     </td>
                     <td class="child">
                         <label>Objects per row</label>
@@ -54,9 +77,6 @@
                     </td>
                 </tr>
             </table>
-            <input type="hidden" id="loadProjects" value="1" runat="server"/>
-            <input type="hidden" id="loadObjects" value="0" runat="server"/>
-            <input type="hidden" id="loadSingleObject" value="0" runat="server"/>
         </div>
         
         <div class="Content">

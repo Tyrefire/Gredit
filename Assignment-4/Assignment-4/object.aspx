@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="objects.aspx.cs" Inherits="Assignment_4.objects" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="object.aspx.cs" Inherits="Assignment_4._object" %>
 
 <!DOCTYPE html>
 
@@ -16,63 +16,45 @@
             vertical-align: middle;
         }
         .Content {
+            width: 100%;
             padding-top: 5%;
-        }
-        .child {
-            vertical-align: middle;
-        }
-        .btnClass {
-            width: 35px;
-            height: 35px;
+            text-align: left;
+            vertical-align: text-top;
         }
     </style>
     <script>
-        setInterval(updateObjects, 10000);
+        setInterval(updateData(), 10000);
 
-        function updateObjects() {
+        function updateData() {
             <%
-                updateObj();
+                updateText();
             %>
-        }
-
-        function makeNewObject() {
-            var title = prompt("Enter Object Title: ", "Title");
-            if (title == null || title == "") {
-                return;
-            }
-            document.getElementById("callServer").value = title;
-            <%
-                makeNewObj();
-            %>
-        }
-
-        function getSingleObject() {
-            window.location = "object.aspx";
         }
 
         function goBack() {
-            window.location.goBack();
+            window.history.back();
+        }
+
+        function setStatusOpen() {
+            <%
+                obj.setStatus(0);
+            %>
         }
     </script>
 </head>
-<body>
+<body onunload="setStatusOpen()">
     <form id="form1" runat="server">
-        <asp:HiddenField ID="callServer" runat="server" />
-        
+        <asp:ScriptManager ID="ScriptMgr" runat="server" EnablePageMethods="true"></asp:ScriptManager>
+
         <div class="Fixed">
             <table style="width:100%; align-content:stretch;">
                 <tr>
                     <td class="child">
-                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClientClick="makeNewObject()" />
                         <asp:ImageButton ID="backBtn" class="btnClass" runat="server" ImageUrl="~/Models/back.png" OnClientClick="goBack()"/>
                     </td>
                     <td class="child">
-                        <label>Objects per row</label>
-                        <asp:DropDownList ID="ddlColCount" runat="server">
-                            <asp:ListItem>2</asp:ListItem>
-                            <asp:ListItem>3</asp:ListItem>
-                            <asp:ListItem>4</asp:ListItem>
-                        </asp:DropDownList>
+                        <label>Title: </label>
+                        <asp:TextBox ID="titleField" runat="server"></asp:TextBox>
                     </td>
                     <td class="child">
                         <asp:Button ID="btnrefresh" runat="server" Text="Refresh Panel" style="width:130px" />

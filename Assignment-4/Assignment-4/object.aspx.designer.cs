@@ -10,7 +10,7 @@
 namespace Assignment_4 {
     
     
-    public partial class objects {
+    public partial class _object {
         
         /// <summary>
         /// form1 control.
@@ -22,22 +22,13 @@ namespace Assignment_4 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// callServer control.
+        /// ScriptMgr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField callServer;
-        
-        /// <summary>
-        /// addObj control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addObj;
+        protected global::System.Web.UI.ScriptManager ScriptMgr;
         
         /// <summary>
         /// backBtn control.
@@ -49,13 +40,13 @@ namespace Assignment_4 {
         protected global::System.Web.UI.WebControls.ImageButton backBtn;
         
         /// <summary>
-        /// ddlColCount control.
+        /// titleField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlColCount;
+        protected global::System.Web.UI.WebControls.TextBox titleField;
         
         /// <summary>
         /// btnrefresh control.

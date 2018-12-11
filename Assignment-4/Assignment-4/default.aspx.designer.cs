@@ -22,6 +22,24 @@ namespace Assignment_4 {
         protected global::System.Web.UI.HtmlControls.HtmlForm main;
         
         /// <summary>
+        /// callServer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField callServer1;
+        
+        /// <summary>
+        /// callServer2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField callServer2;
+        
+        /// <summary>
         /// addObj control.
         /// </summary>
         /// <remarks>
@@ -29,15 +47,6 @@ namespace Assignment_4 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button addObj;
-        
-        /// <summary>
-        /// backBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton backBtn;
         
         /// <summary>
         /// ddlColCount control.
@@ -56,33 +65,6 @@ namespace Assignment_4 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnrefresh;
-        
-        /// <summary>
-        /// loadProjects control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden loadProjects;
-        
-        /// <summary>
-        /// loadObjects control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden loadObjects;
-        
-        /// <summary>
-        /// loadSingleObject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden loadSingleObject;
         
         /// <summary>
         /// pnldynamic control.
