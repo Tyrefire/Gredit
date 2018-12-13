@@ -34,12 +34,6 @@
         function goBack() {
             window.history.back();
         }
-
-        function setStatusOpen() {
-            <%
-                obj.setStatus(0);
-            %>
-        }
     </script>
 </head>
 <body onunload="setStatusOpen()">

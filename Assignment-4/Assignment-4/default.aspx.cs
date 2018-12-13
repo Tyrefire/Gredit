@@ -10,11 +10,18 @@ namespace Assignment_4
 {
     public partial class _default : System.Web.UI.Page
     {
+        #region variables
+
         public int objectCount;
         public int projectCount;
         public int cellCount;
 
         public List<ProjectGroup> proj;
+        public DataAccess d;
+
+        #endregion
+
+        #region methods
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,20 +31,47 @@ namespace Assignment_4
             //This code to be ammended with connection to database to get all projects
             proj = new List<ProjectGroup>();
 
-            //This code to be removed once connection to database is established
-            ProjectGroup p = new ProjectGroup();
-            proj.Add(p);
 
-            projectCount = proj.Count();
+            //This code to be removed once connection to database is established
+            ProjectGroup[] p = DataAccess.getGroups();
+
+            foreach( ProjectGroup P in p)
+            {
+                proj.Add(P);
+            }
 
             //draw projects
             drawProjectsPage();
+        }
+
+        protected void editProject(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            String s = b.ID;
+            int id = Int32.Parse(s.Substring(1));
+
+            String gName = callServer1.Value;
+            String gDesc = callServer2.Value;
+
+            DataAccess.updateGroup(id, gName, gDesc);
+
+            drawProjectsPage();
+        }
+
+        protected void goToNextPage(object sender, EventArgs e)
+        {
+            TextBox c = (TextBox)sender;
+            String groupId = c.ID;
+            Session["gID"] = groupId;
+
+            Response.Redirect("objects.aspx");
         }
 
         private void drawProjectsPage()
         {
             pnldynamic.Dispose();
 
+            projectCount = proj.Count();
             int rowCount;
             Table t;
 
@@ -81,23 +115,29 @@ namespace Assignment_4
                     TableCell cell = new TableCell();
 
                     Label Title = new Label();
-                    Title.Text = proj[0].getGroupName();
+                    Title.Text = proj[(i * cellCount) + j].getGroupName();
+                    Button edit = new Button();
+                    edit.ID = "b" + proj[(i * cellCount) + j].getGroupID();
+                    edit.Text = "Edit";
+                    edit.Attributes.Add("OnClick", "editProject()");
+                    edit.Attributes.Add("OnClientClick", "editGroup()");
 
                     TextBox tb = new TextBox();
                     tb.ReadOnly = true;
                     tb.TextMode = TextBoxMode.MultiLine;
-                    tb.ID = "proj" + proj[0].getGroupID();
-                    tb.Text = "proj" + proj[0].getGroupID();
-                    tb.Text += "\n" + proj[0].getGroupDescription();
+                    tb.ID = "proj" + proj[(i * cellCount) + j].getGroupID();
+                    tb.Text = "proj" + proj[(i * cellCount) + j].getGroupID();
+                    tb.Text += "\n" + proj[(i * cellCount) + j].getGroupDescription();
                     tb.Rows = 20;
                     tb.Columns = 50;
+                    tb.Attributes.Add("OnClick", "goToNextPage()");
 
                     cell.Controls.Add(Title);
+                    cell.Controls.Add(edit);
                     cell.Controls.Add(new LiteralControl("<br />"));
                     cell.Controls.Add(tb);
-                    cell.Attributes.Add("OnClick", "getObjects()");
 
-                    cell.ID = "Project" + proj[0].getGroupID();
+                    cell.ID = "" + proj[(i * cellCount) + j].getGroupID();
                     row.Cells.Add(cell);
                 }
             }
@@ -107,16 +147,8 @@ namespace Assignment_4
 
         public void makeNewGroup()
         {
-            cellCount = Int32.Parse(ddlColCount.SelectedItem.Value);
-
-            String gName = callServer1.Value;
-            String gDesc = callServer2.Value;
-            ProjectGroup newGroup = new ProjectGroup();
-            newGroup.setGroupName(gName);
-            newGroup.setGroupDescription(gDesc);
-
-            proj.Add(newGroup);
-            projectCount = proj.Count();
+            DataAccess d = new DataAccess();
+            d.insertGroup();
 
             drawProjectsPage();
         }
@@ -125,6 +157,8 @@ namespace Assignment_4
         {
             drawProjectsPage();
         }
+
+        #endregion
 
     }
 }

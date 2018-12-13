@@ -35,21 +35,18 @@
             %>
         }
 
-        function makeNewGroup() {
+        function editGroup() {
             var title = prompt("Enter Project Title: ", "Title");
             var desc = prompt("Project Description", "Descritption")
+
             if (title == null || title == "" || desc == null) {
+                alert("Must have a title/description");
+                editGroup();
                 return;
             }
+
             document.getElementById("callServer1").value = title;
             document.getElementById("callServer2").value = desc;
-            <%
-                makeNewGroup();
-            %>
-        }
-
-        function getObjects() {
-            window.location = "objects.aspx";
         }
     </script>
 </head>
@@ -62,7 +59,7 @@
             <table style="width:100%; align-content:stretch;">
                 <tr>
                     <td class="child">
-                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClientClick="makeNewGroup()" />
+                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClick="makeNewGroup()" />
                     </td>
                     <td class="child">
                         <label>Objects per row</label>

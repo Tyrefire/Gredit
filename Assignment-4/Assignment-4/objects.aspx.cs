@@ -10,38 +10,70 @@ namespace Assignment_4
 {
     public partial class objects : System.Web.UI.Page
     {
+
+        #region variables
+
         public int objectCount;
         public int cellCount;
-        public int pID;
+        public int pId;
 
         public List<WorkObject> obj;
-        public List<ProjectGroup> proj;
+
+        #endregion
+
+        #region methods
 
         protected void Page_Load(object sender, EventArgs e)
         {
             cellCount = Int32.Parse(ddlColCount.SelectedItem.Value);
-            pID = 1;
+            pId = (int)Session["gID"];
 
             //Add all objects from project with a certain groupID to the list of objects
             //This code to be ammended with connection to database to get all objects
             obj = new List<WorkObject>();
 
             //This code to be removed once connection to database is established
-            ProjectGroup p = new ProjectGroup();
-            WorkObject w = new WorkObject(pID);
-            obj.Add(w);
+            WorkObject[] w = DataAccess.getWorkObjectsByGroup(pId);
 
-            objectCount = obj.Count();
+            foreach (WorkObject W in w)
+            {
+                obj.Add(W);
+            }
 
             //draw objects
             drawObjectsPage();
+        }
 
+        protected void editObject(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            String s = b.ID;
+            int id = Int32.Parse(s.Substring(1));
+
+            String oTitle = callServer.Value;
+
+            WorkObject[] workObjects = DataAccess.getWorkObjectsByGroup(pId);
+            WorkObject work = workObjects[id];
+
+            DataAccess.updateWorkObject(id, oTitle, work.getObjectText());
+
+            drawObjectsPage();
+        }
+
+        protected void goToNextPage(object sender, EventArgs e)
+        {
+            TextBox c = (TextBox)sender;
+            String objectId = c.ID;
+            Session["oID"] = objectId;
+
+            Response.Redirect("object.aspx");
         }
 
         private void drawObjectsPage()
         {
             pnldynamic.Dispose();
 
+            objectCount = obj.Count();
             int rowCount;
             Table t;
 
@@ -84,23 +116,28 @@ namespace Assignment_4
                 {
                     TableCell cell = new TableCell();
                     Label Title = new Label();
-                    Title.Text = obj[0].getObjectTitle();
+                    Title.Text = obj[(i * cellCount) + j].getObjectTitle();
+                    Button edit = new Button();
+                    edit.ID = "b" + obj[(i * cellCount) + j].getGroupID();
+                    edit.Text = "Edit";
+                    edit.Attributes.Add("OnClick", "editObject()");
+                    edit.Attributes.Add("OnClientClick", "editWork()");
 
                     TextBox tb = new TextBox();
                     tb.TextMode = TextBoxMode.MultiLine;
                     tb.ReadOnly = true;
-                    tb.ID = "obj" + obj[0].getObjectID();
-                    tb.Text = "obj" + obj[0].getObjectID();
-                    tb.Text += obj[0].getObjectText();
+                    tb.ID = "obj" + obj[(i * cellCount) + j].getObjectID();
+                    tb.Text = "obj" + obj[(i * cellCount) + j].getObjectID();
+                    tb.Text += "\n" + obj[(i * cellCount) + j].getObjectText();
                     tb.Rows = 20;
                     tb.Columns = 50;
+                    tb.Attributes.Add("OnClick", "goToNextPage()");
 
                     cell.Controls.Add(Title);
                     cell.Controls.Add(new LiteralControl("<br />"));
                     cell.Controls.Add(tb);
-                    cell.Attributes.Add("OnClick", "getSingleObject()");
 
-                    cell.ID = "Object" + obj[0].getObjectID();
+                    cell.ID = "" + obj[(i * cellCount) + j].getObjectID();
                     row.Cells.Add(cell);
                 }
             }
@@ -110,10 +147,9 @@ namespace Assignment_4
 
         public void makeNewObj()
         {
-            String oTitle = callServer.Value;
-            WorkObject newObj = new WorkObject(pID);
-            newObj.setObjectTitle(oTitle);
-            obj.Add(newObj);
+            DataAccess d = new DataAccess();
+            d.insertWorkObject(pId);
+
             drawObjectsPage();
         }
 
@@ -121,6 +157,8 @@ namespace Assignment_4
         {
             drawObjectsPage();
         }
+
+        #endregion
 
     }
 }

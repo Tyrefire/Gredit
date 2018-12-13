@@ -35,23 +35,20 @@
             %>
         }
 
-        function makeNewObject() {
+        function editWork() {
             var title = prompt("Enter Object Title: ", "Title");
+
             if (title == null || title == "") {
+                alert("must have a title");
+                editWork();
                 return;
             }
-            document.getElementById("callServer").value = title;
-            <%
-                makeNewObj();
-            %>
-        }
 
-        function getSingleObject() {
-            window.location = "object.aspx";
+            document.getElementById("callServer").value = title;
         }
 
         function goBack() {
-            window.location.goBack();
+            window.location = "default.aspx";
         }
     </script>
 </head>
@@ -63,7 +60,7 @@
             <table style="width:100%; align-content:stretch;">
                 <tr>
                     <td class="child">
-                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClientClick="makeNewObject()" />
+                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClick="makeNewObj()" />
                         <asp:ImageButton ID="backBtn" class="btnClass" runat="server" ImageUrl="~/Models/back.png" OnClientClick="goBack()"/>
                     </td>
                     <td class="child">
