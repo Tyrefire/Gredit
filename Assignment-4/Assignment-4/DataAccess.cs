@@ -15,10 +15,12 @@ namespace Assignment_4
         public static SqlConnection con = new SqlConnection();
         public static SqlCommand cmd = new SqlCommand();
 
+        public static String s = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID=colin.heald;Password=co1inH3a1d;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
         public static int insertGroup(string gName, string gDesc, int gStatus)
         {
 
-            con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
             con.Open();
 
             cmd.Connection = con;
@@ -31,7 +33,7 @@ namespace Assignment_4
 
         public static int insertWorkObject(int grID, string wName, string wText)
         {
-            con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            con.ConnectionString = s;
             con.Open();
 
             cmd.Connection = con;
@@ -48,7 +50,7 @@ namespace Assignment_4
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
 
-            con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            con.ConnectionString = s;
             con.Open();
 
             cmd.Connection = con;
@@ -70,13 +72,13 @@ namespace Assignment_4
                 if (ds.Tables.Count > 0)
                 {
 
-                    
+
                     pGroupArray[i] = new ProjectGroup(i);
 
                     //id
                     temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
                     pGroupArray[i].groupID = Convert.ToInt32(temp);
-      
+
                     //name
                     pGroupArray[i].groupName = ds.Tables[0].Rows[i].ItemArray[1].ToString();
 
@@ -84,7 +86,7 @@ namespace Assignment_4
                     pGroupArray[i].groupDescription = ds.Tables[0].Rows[i].ItemArray[2].ToString();
 
                     temp = ds.Tables[0].Rows[i].ItemArray[3].ToString();
-                    pGroupArray[i].status = Convert.ToInt32(temp);
+                    pGroupArray[i].status = 0;// Convert.ToInt32(temp);
                 }
             }
 
@@ -96,7 +98,7 @@ namespace Assignment_4
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
 
-            con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            con.ConnectionString = s;
             con.Open();
 
             cmd.Connection = con;
@@ -113,25 +115,25 @@ namespace Assignment_4
             string temp;
 
             //populate array based on data set
-            for (int i=0; i< ds.Tables[0].Rows.Count; i++)
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                    if (ds.Tables.Count > 0)
-                    {
-                        wObjArray[i] = new WorkObject(i,i);
+                if (ds.Tables.Count > 0)
+                {
+                    wObjArray[i] = new WorkObject(i, i);
 
-                        //obj ID
-                        temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
-                        wObjArray[i].objectID = Convert.ToInt32(temp);
+                    //obj ID
+                    temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
+                    wObjArray[i].objectID = Convert.ToInt32(temp);
 
-                        //Group ID
-                        temp = ds.Tables[0].Rows[i].ItemArray[1].ToString();
-                        wObjArray[i].groupID = Convert.ToInt32(temp);
+                    //Group ID
+                    temp = ds.Tables[0].Rows[i].ItemArray[1].ToString();
+                    wObjArray[i].groupID = Convert.ToInt32(temp);
 
-                        //Object Title
-                        wObjArray[i].objectTitle = ds.Tables[0].Rows[i].ItemArray[2].ToString();
+                    //Object Title
+                    wObjArray[i].objectTitle = ds.Tables[0].Rows[i].ItemArray[2].ToString();
 
-                        //Object Text
-                        wObjArray[i].objectText = ds.Tables[0].Rows[i].ItemArray[3].ToString();
+                    //Object Text
+                    wObjArray[i].objectText = ds.Tables[0].Rows[i].ItemArray[3].ToString();
                 }
             }
 
@@ -140,7 +142,7 @@ namespace Assignment_4
 
         public static void updateGroup(int grID, string grName, string grDesc)
         {
-            con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            con.ConnectionString = s;
             con.Open();
 
             cmd.Connection = con;
@@ -155,7 +157,7 @@ namespace Assignment_4
 
         public static void updateWorkObject(int wObjID, string wObjName, string wObjtext)
         {
-            con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            con.ConnectionString = s;
             con.Open();
 
             cmd.Connection = con;

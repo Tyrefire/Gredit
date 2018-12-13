@@ -103,6 +103,7 @@
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="object.aspx" />
     <Content Include="objects.aspx" />
+    <Content Include="Scripts\comm.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.js" />
