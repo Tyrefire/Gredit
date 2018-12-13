@@ -1,14 +1,14 @@
 ﻿"use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/myHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/A4Hub").build();
 
-connection.on("ReceiveMessage", function (results) {
+/*connection.on("ReceiveMessage", function (results) {
     //var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     //var encodedMsg = user + " says " + msg;
     //var li = document.createElement("li");
     //li.textContent = encodedMsg;
     //document.getElementById("messagesList").appendChild(li);
-    document.getElementById('freshmen').innerHTML = results.freshman;
+    /*document.getElementById('freshmen').innerHTML = results.freshman;
     document.getElementById('sophomores').innerHTML = results.sophomore;
     document.getElementById('juniors').innerHTML = results.junior;
     document.getElementById('seniors').innerHTML = results.senior;
@@ -32,6 +32,32 @@ connection.on("ReceiveMessage", function (results) {
             }
         }
     });
+
+
+});*/
+
+connection.on("ClientUpdateWorkObject", function (results) {
+
+});
+
+connection.on("ClientUpdateProjectGroup", function (results) {
+
+});
+
+connection.on("ClientAddProjectGroup", function (results) {
+
+});
+
+connection.on("ClientAddWorkObject", function (results) {
+
+});
+
+connection.on("ClientGetGroups", function (results) {
+
+});
+
+connection.on("ClientGetWorkObjects", function (results) {
+
 });
 
 connection.start().catch(function (err) {

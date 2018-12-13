@@ -1,8 +1,11 @@
 ﻿using Assignment_4.Models;
+using Assignment_4.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,12 +15,10 @@ namespace Assignment_4
     {
         #region variables
 
-        public int objectCount;
-        public int projectCount;
-        public int cellCount;
+        public static int projectCount;
+        public static int cellCount;
 
-        public List<ProjectGroup> proj;
-        public DataAccess d;
+        public static List<ProjectGroup> proj;
 
         #endregion
 
@@ -30,7 +31,6 @@ namespace Assignment_4
             //Add all projects to the list of projects
             //This code to be ammended with connection to database to get all projects
             proj = new List<ProjectGroup>();
-
 
             //This code to be removed once connection to database is established
             ProjectGroup[] p = DataAccess.getGroups();
@@ -55,21 +55,30 @@ namespace Assignment_4
 
             DataAccess.updateGroup(id, gName, gDesc);
 
-            drawProjectsPage();
+            //pnldynamic.Controls.Add(drawProjectsPage());
         }
 
-        protected void goToNextPage(object sender, EventArgs e)
+        [WebMethod]
+        public static void goToNextPage(String s)
         {
-            TextBox c = (TextBox)sender;
-            String groupId = c.ID;
-            Session["gID"] = groupId;
+            //TextBox c = (TextBox)sender;
+            String groupId = s.Substring(4);
+            HttpContext.Current.Session["gID"] = groupId;
 
-            Response.Redirect("objects.aspx");
+            HttpContext.Current.Response.Redirect("objects.aspx");
         }
 
-        private void drawProjectsPage()
+        protected void makeNewGroup(object sender, EventArgs e)
         {
-            pnldynamic.Dispose();
+            DataAccess.insertGroup("Title", "Description", 0);
+        }
+
+        [WebMethod]
+        public static Panel drawProjectsPage()
+        {
+            Panel pnldynamic = new Panel();
+
+            pnldynamic.Controls.Clear();
 
             projectCount = proj.Count();
             int rowCount;
@@ -119,18 +128,20 @@ namespace Assignment_4
                     Button edit = new Button();
                     edit.ID = "b" + proj[(i * cellCount) + j].getGroupID();
                     edit.Text = "Edit";
-                    edit.Attributes.Add("OnClick", "editProject()");
-                    edit.Attributes.Add("OnClientClick", "editGroup()");
+                    //edit.Attributes.Add("OnClick", "editProject");
+                    edit.Attributes.Add("OnClick", "editGroup()");
 
                     TextBox tb = new TextBox();
                     tb.ReadOnly = true;
                     tb.TextMode = TextBoxMode.MultiLine;
+                    tb.Attributes.Add("style", "resize:none");
                     tb.ID = "proj" + proj[(i * cellCount) + j].getGroupID();
                     tb.Text = "proj" + proj[(i * cellCount) + j].getGroupID();
                     tb.Text += "\n" + proj[(i * cellCount) + j].getGroupDescription();
                     tb.Rows = 20;
                     tb.Columns = 50;
-                    tb.Attributes.Add("OnClick", "goToNextPage()");
+                    tb.Attributes.Add("runat", "server");
+                    tb.Attributes.Add("OnClick", "goToNextPage(this.id)");
 
                     cell.Controls.Add(Title);
                     cell.Controls.Add(edit);
@@ -143,17 +154,11 @@ namespace Assignment_4
             }
 
             pnldynamic.Controls.Add(t);
+            return pnldynamic;
         }
 
-        public void makeNewGroup()
-        {
-            DataAccess d = new DataAccess();
-            d.insertGroup();
-
-            drawProjectsPage();
-        }
-
-        public void updateGroups()
+        [WebMethod]
+        public static void updateGroups()
         {
             drawProjectsPage();
         }

@@ -26,7 +26,7 @@ namespace Assignment_4
         protected void Page_Load(object sender, EventArgs e)
         {
             cellCount = Int32.Parse(ddlColCount.SelectedItem.Value);
-            pId = (int)Session["gID"];
+            pId = Convert.ToInt32(Session["2"]);
 
             //Add all objects from project with a certain groupID to the list of objects
             //This code to be ammended with connection to database to get all objects
@@ -53,7 +53,15 @@ namespace Assignment_4
             String oTitle = callServer.Value;
 
             WorkObject[] workObjects = DataAccess.getWorkObjectsByGroup(pId);
-            WorkObject work = workObjects[id];
+            WorkObject work = new WorkObject(1);
+
+            foreach(WorkObject o in workObjects)
+            {
+                if(id == o.getObjectID())
+                {
+                    work = o;
+                }
+            }
 
             DataAccess.updateWorkObject(id, oTitle, work.getObjectText());
 
@@ -69,9 +77,16 @@ namespace Assignment_4
             Response.Redirect("object.aspx");
         }
 
+        protected void makeNewObj(object sender, EventArgs e)
+        {
+            DataAccess.insertWorkObject(pId, "Title", "");
+
+            drawObjectsPage();
+        }
+
         private void drawObjectsPage()
         {
-            pnldynamic.Dispose();
+            pnldynamic.Controls.Clear();
 
             objectCount = obj.Count();
             int rowCount;
@@ -120,7 +135,7 @@ namespace Assignment_4
                     Button edit = new Button();
                     edit.ID = "b" + obj[(i * cellCount) + j].getGroupID();
                     edit.Text = "Edit";
-                    edit.Attributes.Add("OnClick", "editObject()");
+                    edit.Attributes.Add("OnClick", "editObject");
                     edit.Attributes.Add("OnClientClick", "editWork()");
 
                     TextBox tb = new TextBox();
@@ -131,7 +146,7 @@ namespace Assignment_4
                     tb.Text += "\n" + obj[(i * cellCount) + j].getObjectText();
                     tb.Rows = 20;
                     tb.Columns = 50;
-                    tb.Attributes.Add("OnClick", "goToNextPage()");
+                    tb.Attributes.Add("OnClick", "goToNextPage");
 
                     cell.Controls.Add(Title);
                     cell.Controls.Add(new LiteralControl("<br />"));
@@ -143,14 +158,6 @@ namespace Assignment_4
             }
 
             pnldynamic.Controls.Add(t);
-        }
-
-        public void makeNewObj()
-        {
-            DataAccess d = new DataAccess();
-            d.insertWorkObject(pId);
-
-            drawObjectsPage();
         }
 
         public void updateObj()

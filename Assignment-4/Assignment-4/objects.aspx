@@ -30,9 +30,7 @@
         setInterval(updateObjects, 10000);
 
         function updateObjects() {
-            <%
-                updateObj();
-            %>
+            
         }
 
         function editWork() {
@@ -60,7 +58,7 @@
             <table style="width:100%; align-content:stretch;">
                 <tr>
                     <td class="child">
-                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClick="makeNewObj()" />
+                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClick="makeNewObj" />
                         <asp:ImageButton ID="backBtn" class="btnClass" runat="server" ImageUrl="~/Models/back.png" OnClientClick="goBack()"/>
                     </td>
                     <td class="child">

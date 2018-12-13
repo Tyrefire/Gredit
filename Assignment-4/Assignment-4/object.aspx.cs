@@ -37,8 +37,15 @@ namespace Assignment_4
 
             WorkObject[] o = DataAccess.getWorkObjectsByGroup(pId);
 
-            obj = o[oId];
-            obj.setStatus(oId);
+            foreach(WorkObject O in o)
+            {
+                if(oId == O.getObjectID())
+                {
+                    obj = O;
+                }
+            }
+
+            obj.setStatus(1);
 
             titleField.Text = obj.getObjectTitle();
 
@@ -79,7 +86,7 @@ namespace Assignment_4
 
         protected void exitingObject(object sender, EventArgs e)
         {
-            obj.setStatus(oId);
+            obj.setStatus(0);
             Response.Redirect("default.aspx");
         }
 

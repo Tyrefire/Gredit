@@ -26,13 +26,23 @@
             height: 35px;
         }
     </style>
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    
     <script>
         setInterval(updateProjects, 10000);
 
-        function updateProjects() {
-            <%
-                updateGroups();
-            %>
+        function updateProjects(id) {
+
+            myData = JSON.stringify({ s: id });
+
+            $.ajax({
+                type: "POST",
+                url: "default.aspx/updateGroups",
+                data: myData,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8"
+            });
         }
 
         function editGroup() {
@@ -47,6 +57,28 @@
 
             document.getElementById("callServer1").value = title;
             document.getElementById("callServer2").value = desc;
+
+            
+
+            //var myData = JSON.stringify({ t: title, d: desc });
+
+            $.ajax({
+                type: "POST",
+                url: "default.aspx/editProject",
+                data: "",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8"
+            });
+        }
+        
+        function goToNextPage() {
+            $.ajax({
+                type: "POST",
+                url: "default.aspx/goToNextPage",
+                data: "",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8"
+            });
         }
     </script>
 </head>
@@ -59,7 +91,7 @@
             <table style="width:100%; align-content:stretch;">
                 <tr>
                     <td class="child">
-                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClick="makeNewGroup()" />
+                        <asp:Button ID="addObj" class="btnClass" runat="server" Text="+" Font-Size="Larger" Font-Bold="true" OnClick="makeNewGroup" />
                     </td>
                     <td class="child">
                         <label>Objects per row</label>
@@ -76,7 +108,7 @@
             </table>
         </div>
         
-        <div class="Content">
+        <div id="content2" class="Content">
             <asp:Panel ID="pnldynamic" runat="server" BorderColor="#646464" 
                 BorderStyle="Solid" Height="150px" ScrollBars="Auto" style="width:100%; height:auto"
                 BackColor="#C8C8C8" Font-Names="Courier" HorizontalAlign="Center" >
