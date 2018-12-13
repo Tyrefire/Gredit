@@ -12,48 +12,31 @@ namespace Assignment_4
 {
     public class DataAccess
     {
-
-        DataTable dt = new DataTable();
-        DataSet ds = new DataSet();
-
-        public string gName;
-        public string gDesc;
-        public int gStatus;
-
-        public string wName;
-        public string wText;
-        public string wStatus;
-
-        public string queryStatus;
-
         public static SqlConnection con = new SqlConnection();
         public static SqlCommand cmd = new SqlCommand();
 
-        public int insertGroup()
+        public static int insertGroup(string gName, string gDesc, int gStatus)
         {
-            int returnedId;
+
             con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             con.Open();
 
             cmd.Connection = con;
             cmd.CommandText = "EXEC AddGroup @name = " + gName + ", @description = " + gDesc + ";";
 
-            returnedId = cmd.ExecuteNonQuery();     
-
+            var returnedId = (Int32)cmd.ExecuteScalar();
             con.Close();
             return returnedId;
         }
 
-        public int insertWorkObject(int grID)
+        public static int insertWorkObject(int grID, string wName, string wText)
         {
-            int returnedId;
             con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             con.Open();
 
             cmd.Connection = con;
             cmd.CommandText = "EXEC AddWorkObject  @group = " + grID + " @name = " + wName + ", @text = " + wText + ";";
-
-            returnedId = cmd.ExecuteNonQuery();
+            var returnedId = (Int32)cmd.ExecuteScalar();
 
             con.Close();
             return returnedId;
@@ -61,42 +44,90 @@ namespace Assignment_4
 
         public static ProjectGroup[] getGroups()
         {
-            int count = 0;
+
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+
             con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             con.Open();
 
             cmd.Connection = con;
             cmd.CommandText = "EXEC GetGroups";
-            cmd.ExecuteNonQuery();
+            dt.Load(cmd.ExecuteReader());
+            ds.Tables.Add(dt);
 
-            // get count of groups
-            //cmd.CommandText = "";
-            //count = cmd.ExecuteNonQuery();
+            //get count of groups
+            cmd.CommandText = "EXEC GetProjectCount";
+            var count = (Int32)cmd.ExecuteScalar();
 
             con.Close();
 
             ProjectGroup[] pGroupArray = new ProjectGroup[count];
+            string temp;
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                if (ds.Tables.Count > 0)
+                {
+
+                    
+                    pGroupArray[i] = new ProjectGroup(i);
+
+                    temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
+                    pGroupArray[i].groupID = Convert.ToInt32(temp);
+      
+                    temp = ds.Tables[0].Rows[i].ItemArray[1].ToString();
+                    pGroupArray[i].groupName = ds.Tables[0].Rows[i].ItemArray[2].ToString();
+
+                    pGroupArray[i].groupDescription = ds.Tables[0].Rows[i].ItemArray[3].ToString();
+
+                    temp = ds.Tables[0].Rows[i].ItemArray[3].ToString();
+                    pGroupArray[i].status = Convert.ToInt32(temp);
+                }
+            }
 
             return pGroupArray;
         }
 
         public static WorkObject[] getWorkObjectsByGroup(int grID)
         {
-            int count = 0;
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+
             con.ConnectionString = @"Server=tcp:colinhealdtest.database.windows.net,1433;Initial Catalog=CHTest;Persist Security Info=False;User ID={db_exec};Password={Moroni10:3-5};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             con.Open();
 
             cmd.Connection = con;
             cmd.CommandText = "EXEC GetWorkObjectsByGroup @group=" + grID + "";
-            cmd.ExecuteNonQuery();
+            dt.Load(cmd.ExecuteReader());
 
             // get count of groups
-            //cmd.CommandText = "";
-            //cmd.ExecuteNonQuery();
+            cmd.CommandText = "EXEC GetWorkObjCount @groupID = " + grID + "";
+            var count = (Int32)cmd.ExecuteScalar();
 
             con.Close();
 
             WorkObject[] wObjArray = new WorkObject[count];
+            string temp;
+
+            //populate array based on data set
+            for (int i=0; i< ds.Tables[0].Rows.Count; i++)
+            {
+                    if (ds.Tables.Count > 0)
+                    {
+                        wObjArray[i] = new WorkObject(i,i);
+
+                        temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
+                        wObjArray[i].objectID = Convert.ToInt32(temp);
+
+                        temp = ds.Tables[0].Rows[i].ItemArray[1].ToString();
+                        wObjArray[i].groupID = Convert.ToInt32(temp);
+
+                        wObjArray[i].objectTitle = ds.Tables[0].Rows[i].ItemArray[2].ToString();
+
+                        wObjArray[i].objectText = ds.Tables[0].Rows[i].ItemArray[3].ToString();
+                }
+            }
 
             return wObjArray;
         }
@@ -128,6 +159,5 @@ namespace Assignment_4
 
             return;
         }
-
     }
 }
