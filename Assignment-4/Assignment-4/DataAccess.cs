@@ -24,7 +24,7 @@ namespace Assignment_4
             cmd.Connection = con;
             cmd.CommandText = "EXEC AddGroup @name = " + gName + ", @description = " + gDesc + ";";
 
-            var returnedId = (Int32)cmd.ExecuteScalar();
+            int returnedId = Convert.ToInt32(cmd.ExecuteScalar());
             con.Close();
             return returnedId;
         }
@@ -36,7 +36,7 @@ namespace Assignment_4
 
             cmd.Connection = con;
             cmd.CommandText = "EXEC AddWorkObject  @group = " + grID + " @name = " + wName + ", @text = " + wText + ";";
-            var returnedId = (Int32)cmd.ExecuteScalar();
+            int returnedId = Convert.ToInt32(cmd.ExecuteScalar());
 
             con.Close();
             return returnedId;
@@ -58,7 +58,7 @@ namespace Assignment_4
 
             //get count of groups
             cmd.CommandText = "EXEC GetProjectCount";
-            var count = (Int32)cmd.ExecuteScalar();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
 
             con.Close();
 
@@ -73,13 +73,15 @@ namespace Assignment_4
                     
                     pGroupArray[i] = new ProjectGroup(i);
 
+                    //id
                     temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
                     pGroupArray[i].groupID = Convert.ToInt32(temp);
       
-                    temp = ds.Tables[0].Rows[i].ItemArray[1].ToString();
-                    pGroupArray[i].groupName = ds.Tables[0].Rows[i].ItemArray[2].ToString();
+                    //name
+                    pGroupArray[i].groupName = ds.Tables[0].Rows[i].ItemArray[1].ToString();
 
-                    pGroupArray[i].groupDescription = ds.Tables[0].Rows[i].ItemArray[3].ToString();
+                    //description
+                    pGroupArray[i].groupDescription = ds.Tables[0].Rows[i].ItemArray[2].ToString();
 
                     temp = ds.Tables[0].Rows[i].ItemArray[3].ToString();
                     pGroupArray[i].status = Convert.ToInt32(temp);
@@ -103,7 +105,7 @@ namespace Assignment_4
 
             // get count of groups
             cmd.CommandText = "EXEC GetWorkObjCount @groupID = " + grID + "";
-            var count = (Int32)cmd.ExecuteScalar();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
 
             con.Close();
 
@@ -117,14 +119,18 @@ namespace Assignment_4
                     {
                         wObjArray[i] = new WorkObject(i,i);
 
+                        //obj ID
                         temp = ds.Tables[0].Rows[i].ItemArray[0].ToString();
                         wObjArray[i].objectID = Convert.ToInt32(temp);
 
+                        //Group ID
                         temp = ds.Tables[0].Rows[i].ItemArray[1].ToString();
                         wObjArray[i].groupID = Convert.ToInt32(temp);
 
+                        //Object Title
                         wObjArray[i].objectTitle = ds.Tables[0].Rows[i].ItemArray[2].ToString();
 
+                        //Object Text
                         wObjArray[i].objectText = ds.Tables[0].Rows[i].ItemArray[3].ToString();
                 }
             }
