@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Assignment_4.Hubs
 {
-	public class MyHub : Hub
+	public class A4Hub : Hub
 	{
 		
 		
@@ -17,15 +17,15 @@ namespace Assignment_4.Hubs
 		public async Task UpdateWorkObject(WorkObject workObj)
 		{
 			//update the database and the objects collection
-
-			await Clients.All.SendAsync(workObj);
+			workObj.updateWorkObject();
+			await Clients.All.ClientUpdateWorkObject(workObj);
 		}
 
 		public async Task UpdateProjectGroup(ProjectGroup group)
 		{
 			//update the database and the groups collection
 
-			await Clients.All.SendAsync(group);
+			await Clients.All.ClientUpdateProjectGroup(group);
 
 		}
 
@@ -33,28 +33,28 @@ namespace Assignment_4.Hubs
 		{
 			//update the database and the groups collection
 
-			await Clients.All.SendAsync(group);
+			await Clients.All.ClientAddProjectGroup(group);
 		}
 
 		public async Task AddWorkObject(WorkObject workObj)
 		{
 			//update the database and the objects collection
 
-			await Clients.All.SendAsync(workObj);
+			await Clients.All.ClientAddWorkObject(workObj);
 
 		}
 
 		public async Task GetGroups()
 		{
-			ProjectGroup[] groups = DataAccess.GetGroups();
+			ProjectGroup[] groups = DataAccess.getGroups();
 
-			await Clients.Caller.SendAsync(groups);
+			await Clients.Caller.ClientGetGroups(groups);
 		}
 
 		public async Task GetWorkObjects(int groupID)
 		{
-			WorkObject[] workObjs = DataAccess.GetWorkObjectsByGroupID(groupID);
-			await Clients.Caller.SendAsync(workObjs);
+			WorkObject[] workObjs = DataAccess.getWorkObjectsByGroup(groupID);
+			await Clients.Caller.ClientGetWorkObjects(workObjs);
 		}
 	}
 }
