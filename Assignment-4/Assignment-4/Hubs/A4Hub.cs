@@ -11,22 +11,21 @@ namespace Assignment_4.Hubs
 {
 	public class MyHub : Hub
 	{
-		Dictionary<int, ProjectGroup> groups = new Dictionary<int, ProjectGroup>();
-		Dictionary<int, WorkObject> objects = new Dictionary<int, WorkObject>();
+		
 		
 
 		public async Task UpdateWorkObject(WorkObject workObj)
 		{
 			//update the database and the objects collection
 
-			await Clients.All.SendAsync(objects);
+			await Clients.All.SendAsync(workObj);
 		}
 
 		public async Task UpdateProjectGroup(ProjectGroup group)
 		{
 			//update the database and the groups collection
 
-			await Clients.All.SendAsync(groups);
+			await Clients.All.SendAsync(group);
 
 		}
 
@@ -34,27 +33,28 @@ namespace Assignment_4.Hubs
 		{
 			//update the database and the groups collection
 
-			await Clients.All.SendAsync(groups);
+			await Clients.All.SendAsync(group);
 		}
 
 		public async Task AddWorkObject(WorkObject workObj)
 		{
 			//update the database and the objects collection
 
-			await Clients.All.SendAsync(objects);
+			await Clients.All.SendAsync(workObj);
 
 		}
 
 		public async Task GetGroups()
 		{
-
+			ProjectGroup[] groups = DataAccess.GetGroups();
 
 			await Clients.Caller.SendAsync(groups);
 		}
 
-		public async Task GetWorkObjects()
+		public async Task GetWorkObjects(int groupID)
 		{
-			await Clients.Caller.SendAsync(objects);
+			WorkObject[] workObjs = DataAccess.GetWorkObjectsByGroupID(groupID);
+			await Clients.Caller.SendAsync(workObjs);
 		}
 	}
 }
