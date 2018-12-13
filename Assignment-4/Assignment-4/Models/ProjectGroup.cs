@@ -73,6 +73,9 @@ namespace Assignment_4.Models
                 this.status = 0;
             }
         }
-
+        public void updateProjectGroup()
+        {
+            DataAccess.updateGroup(groupID, groupName, groupDescription);
+        }
     }
 }

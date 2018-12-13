@@ -92,5 +92,10 @@ namespace Assignment_4.Models
         {
             modifiedDate = DateTime.Now;
         }
+
+        public void updateWorkObject()
+        {
+            DataAccess.updateWorkObject(objectID, objectTitle, objectText);
+        }
     }
 }
