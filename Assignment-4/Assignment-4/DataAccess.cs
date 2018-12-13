@@ -24,7 +24,7 @@ namespace Assignment_4
             cmd.Connection = con;
             cmd.CommandText = "EXEC AddGroup @name = " + gName + ", @description = " + gDesc + ";";
 
-            var returnedId = (Int32)cmd.ExecuteScalar();
+            int returnedId = Convert.ToInt32(cmd.ExecuteScalar());
             con.Close();
             return returnedId;
         }
@@ -36,7 +36,7 @@ namespace Assignment_4
 
             cmd.Connection = con;
             cmd.CommandText = "EXEC AddWorkObject  @group = " + grID + " @name = " + wName + ", @text = " + wText + ";";
-            var returnedId = (Int32)cmd.ExecuteScalar();
+            int returnedId = Convert.ToInt32(cmd.ExecuteScalar());
 
             con.Close();
             return returnedId;
@@ -58,7 +58,7 @@ namespace Assignment_4
 
             //get count of groups
             cmd.CommandText = "EXEC GetProjectCount";
-            var count = (Int32)cmd.ExecuteScalar();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
 
             con.Close();
 
@@ -105,7 +105,7 @@ namespace Assignment_4
 
             // get count of groups
             cmd.CommandText = "EXEC GetWorkObjCount @groupID = " + grID + "";
-            var count = (Int32)cmd.ExecuteScalar();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
 
             con.Close();
 
