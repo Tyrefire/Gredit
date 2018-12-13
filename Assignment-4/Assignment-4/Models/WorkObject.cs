@@ -7,15 +7,12 @@ namespace Assignment_4.Models
 {
     public class WorkObject
     {
-        public int objectID;
-        public int groupID;
-        public string objectTitle;
-        public string objectText;
-        public int status;
+        public int objectID { get; set; }
+        public int groupID { get; set; }
+        public string objectTitle { get; set; }
+        public string objectText { get; set; }
+        public int status { get; set; }
         public DateTime modifiedDate;
-
-        
-        DataAccess work = new DataAccess();
 
         public WorkObject(int grID)
         {
@@ -24,10 +21,7 @@ namespace Assignment_4.Models
             objectText = "Text";
             modifiedDate = DateTime.Now;
             status = 0;
-
-            work.wName = objectTitle;
-            work.wText = objectText;
-            objectID = work.insertWorkObject(groupID);
+            objectID = DataAccess.insertWorkObject(groupID, objectTitle, objectText);
         }
 
         public WorkObject(int grID, int objID, string objTtitle, string objText, int sta, DateTime modiDate)
@@ -38,6 +32,16 @@ namespace Assignment_4.Models
             objectText = objText;
             status = sta;
             modifiedDate = modiDate;
+        }
+
+        public WorkObject(int useless, int moreUseless)
+        {
+            groupID = 0;
+            objectID = 0;
+            objectTitle = "";
+            objectText = "";
+            status = 0;
+            modifiedDate = DateTime.Now;
         }
 
         //Getters
@@ -88,6 +92,5 @@ namespace Assignment_4.Models
         {
             modifiedDate = DateTime.Now;
         }
-
     }
 }

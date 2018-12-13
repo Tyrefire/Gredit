@@ -7,21 +7,17 @@ namespace Assignment_4.Models
 {
     public class ProjectGroup
     {
-        public int groupID;
-        public string groupName;
-        public string groupDescription;
-        public int status;
-        DataAccess group = new DataAccess();
+        public int groupID { get; set; }
+        public string groupName { get; set; }
+        public string groupDescription { get; set; }
+        public int status { get; set; }
         
         public ProjectGroup()
         {
             groupName = "Title";
             groupDescription = "Description";
             status = 0;
-
-            group.gName = groupName;
-            group.gDesc = groupDescription;
-            groupID = group.insertGroup();
+            groupID = DataAccess.insertGroup(groupName, groupDescription, status);
         }
 
         public ProjectGroup(int grID, string grName, int sta, string grDescription)
@@ -29,7 +25,14 @@ namespace Assignment_4.Models
             groupName = "Title";
             groupDescription = "Description";
             status = 0;
-            groupID = group.insertGroup();
+            groupID = grID;
+        }
+        public ProjectGroup(int useless)
+        {
+            groupID = 0;
+            groupName = "";
+            groupDescription = "";
+            status = 0;
         }
 
         //Getters
